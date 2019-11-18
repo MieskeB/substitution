@@ -1,5 +1,6 @@
 package nl.michelbijnen.tool.substitution;
 
+import nl.michelbijnen.tool.substitution.model.ConsoleColors;
 import nl.michelbijnen.tool.substitution.model.Hint;
 import nl.michelbijnen.tool.substitution.model.Solution;
 
@@ -9,6 +10,8 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 public class Solver {
+
+    private final boolean debug = false;
 
     private char[] chars = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     private List<Hint> hints;
@@ -28,6 +31,8 @@ public class Solver {
         encoded = encoded.toLowerCase();
         List<Solution> solutions = new ArrayList<>();
 
+        if (this.debug) System.out.println(ConsoleColors.MAGENTA + "Encoded: " + encoded + ConsoleColors.RESET);
+
         for (int i1 = 0; i1 < times; i1++) {
 
             try {
@@ -35,6 +40,8 @@ public class Solver {
             } catch (StackOverflowError Ignored) {
                 return solutions;
             }
+
+            if (this.debug) System.out.println(ConsoleColors.MAGENTA + "Key: " + String.valueOf(this.chars) + ConsoleColors.RESET);
 
             char[] decoded = encoded.toCharArray();
 
@@ -49,8 +56,11 @@ public class Solver {
 
             Solution solution = new Solution(encoded, String.valueOf(decoded), String.valueOf(this.chars));
 
+            if (this.debug) System.out.println(ConsoleColors.MAGENTA + "Decoded: " + String.valueOf(decoded) + ConsoleColors.RESET);
+
             if (this.wordChecker != null) {
                 String word = this.wordChecker.checkIfStringContainsEnglishWord(solution.getDecoded());
+                if (this.debug) System.out.println(ConsoleColors.MAGENTA + "Word: " + word + ConsoleColors.RESET);
                 if (word.equals("")) {
                     i1--;
                     continue;

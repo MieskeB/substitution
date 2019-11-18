@@ -16,7 +16,7 @@ public class Main {
         System.out.println("If you have feedback about this tool, please contact me on Discord: MieskeB#0799");
 
         // Encoded string
-        System.out.print(ConsoleColors.BLUE + "What is the string that needs to be decoded? (Use white spaces for the word separator) ");
+        System.out.print(ConsoleColors.BLUE + "What is the string that needs to be decoded? (Use white spaces for the word separator) " + ConsoleColors.MAGENTA_BRIGHT);
         String encoded = in.nextLine();
         System.out.println(ConsoleColors.GREEN + "Encoded string successfully saved!");
 
@@ -24,7 +24,7 @@ public class Main {
         List<Hint> hints;
         String hintsPlain;
         while (true) {
-            System.out.print(ConsoleColors.BLUE + "Do you have any letters which you already know? (format: r=g,a=p,p=r) ");
+            System.out.print(ConsoleColors.BLUE + "Do you have any letters which you already know? (format: r=g,a=p,p=r) " + ConsoleColors.MAGENTA_BRIGHT);
             hintsPlain = in.nextLine();
             try {
                 hints = convertPlainToList(hintsPlain);
@@ -43,7 +43,7 @@ public class Main {
         // Times
         int times;
         while (true) {
-            System.out.print(ConsoleColors.BLUE + "How many findings do you want to get? ");
+            System.out.print(ConsoleColors.BLUE + "How many findings do you want to get? " + ConsoleColors.MAGENTA_BRIGHT);
             try {
                 times = Integer.parseInt(in.nextLine());
                 System.out.println(ConsoleColors.GREEN + "Amount of times successfully saved!");
@@ -58,7 +58,7 @@ public class Main {
         int minWordLength = 0;
         label:
         while (true) {
-            System.out.print(ConsoleColors.BLUE + "With a word checker? (Takes longer to calculate) ");
+            System.out.print(ConsoleColors.BLUE + "With a word checker? (Takes longer to calculate) " + ConsoleColors.MAGENTA_BRIGHT);
             String input = in.nextLine();
             switch (input.toLowerCase()) {
                 case "y":
@@ -69,7 +69,7 @@ public class Main {
                     System.out.println(ConsoleColors.GREEN + "Successfully enabled the word checker!");
 
                     while (true) {
-                        System.out.print(ConsoleColors.BLUE + "What is the minimum word length? ");
+                        System.out.print(ConsoleColors.BLUE + "What is the minimum word length? " + ConsoleColors.MAGENTA_BRIGHT);
                         try {
                             minWordLength = Integer.parseInt(in.nextLine());
                             System.out.println(ConsoleColors.GREEN + "Minimum word length successfully saved!");
@@ -120,13 +120,13 @@ public class Main {
 
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "That's all! Do you want to continue?");
             System.out.println("If yes, input a valid amount of times you want to have more");
-            System.out.println("If no, input anything else");
+            System.out.println("If no, input anything else" + ConsoleColors.MAGENTA_BRIGHT);
             String res = in.nextLine();
 
             try {
                 times = Integer.parseInt(res);
             } catch (Exception Ignored) {
-                System.out.println("Thank you for using this tool!");
+                System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "Thank you for using this tool!");
                 break;
             }
         }

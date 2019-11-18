@@ -12,7 +12,7 @@ import java.util.Set;
 public class WordChecker {
     private Set<String> wordsSet;
 
-    public WordChecker() {
+    public WordChecker(int minWordLength) {
         try {
             Path path = Paths.get("words.txt");
             byte[] readBytes = Files.readAllBytes(path);
@@ -20,9 +20,16 @@ public class WordChecker {
             String[] words = wordListContents.split("\n");
             wordsSet = new HashSet<>();
             Collections.addAll(wordsSet, words);
+
+            for (String word : new HashSet<>(this.wordsSet)) {
+                if (word.length() < minWordLength) {
+                    this.wordsSet.remove(word);
+                }
+            }
         }
         catch (Exception e) {
             System.out.print(ConsoleColors.RED);
+            System.out.println(e.getMessage());
             for (int i = 0; i < 2147483647; i++) {
                 try {
                     Thread.sleep(500);

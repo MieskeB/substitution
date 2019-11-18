@@ -15,12 +15,14 @@ public class Solver {
     private HistoryKeeper historyKeeper;
     private WordChecker wordChecker;
 
-    public Solver() {
+    public Solver(boolean withWordChecker, int minWordLength) {
         this.historyKeeper = new HistoryKeeper();
-        this.wordChecker = new WordChecker();
+        if (withWordChecker) {
+            this.wordChecker = new WordChecker(minWordLength);
+        }
     }
 
-    public List<Solution> getPossibleSolutions(String encoded, List<Hint> hints, int times, boolean withWordChecker) {
+    public List<Solution> getPossibleSolutions(String encoded, List<Hint> hints, int times) {
         this.hints = hints;
         this.charsWithHints();
         encoded = encoded.toLowerCase();
@@ -47,7 +49,7 @@ public class Solver {
 
             Solution solution = new Solution(encoded, String.valueOf(decoded), String.valueOf(this.chars));
 
-            if (withWordChecker) {
+            if (this.wordChecker != null) {
                 String word = this.wordChecker.checkIfStringContainsEnglishWord(solution.getDecoded());
                 if (word.equals("")) {
                     i1--;

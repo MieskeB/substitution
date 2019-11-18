@@ -43,7 +43,7 @@ public class Main {
         // Times
         int times;
         while (true) {
-            System.out.print(ConsoleColors.BLUE + "How many results do you want to try? ");
+            System.out.print(ConsoleColors.BLUE + "How many findings do you want to get? ");
             try {
                 times = Integer.parseInt(in.nextLine());
                 System.out.println(ConsoleColors.GREEN + "Amount of times successfully saved!");
@@ -55,6 +55,7 @@ public class Main {
 
         // WordChecker
         boolean withWordChecker;
+        int minWordLength = 0;
         label:
         while (true) {
             System.out.print(ConsoleColors.BLUE + "With a word checker? (Takes longer to calculate) ");
@@ -65,12 +66,26 @@ public class Main {
                 case "true":
                 case "t":
                     withWordChecker = true;
+                    System.out.println(ConsoleColors.GREEN + "Successfully enabled the word checker!");
+
+                    while (true) {
+                        System.out.print(ConsoleColors.BLUE + "What is the minimum word length? ");
+                        try {
+                            minWordLength = Integer.parseInt(in.nextLine());
+                            System.out.println(ConsoleColors.GREEN + "Minimum word length successfully saved!");
+                            break;
+                        } catch (Exception ignored) {
+                            System.out.println(ConsoleColors.RED + "Something went wrong, did you input a valid number format?");
+                        }
+                    }
+
                     break label;
                 case "n":
                 case "no":
                 case "false":
                 case "f":
                     withWordChecker = false;
+                    System.out.println(ConsoleColors.GREEN + "Successfully disabled the word checker!");
                     break label;
                 default:
                     System.out.println(ConsoleColors.RED + "Please input only yes (yes, y, true or t) or no (no, n, false or f)");
@@ -79,15 +94,15 @@ public class Main {
         }
 
         // Solver
-        Solver solver = new Solver();
+        Solver solver = new Solver(withWordChecker, minWordLength);
         while (true) {
             System.out.print(ConsoleColors.BLUE + "Starting decoding process now for encoded string " + encoded);
             if (hints.size() != 0) {
                 System.out.print(" with hints " + hintsPlain);
             }
-            System.out.println(" trying for " + times + " random solutions");
+            System.out.println(" trying for " + times + " random solution(s)");
 
-            List<Solution> possibleSolutions = solver.getPossibleSolutions(encoded, hints, times, withWordChecker);
+            List<Solution> possibleSolutions = solver.getPossibleSolutions(encoded, hints, times);
 
             if (possibleSolutions.size() != times) {
                 System.out.println(ConsoleColors.RED + "Stopping early because cannot find any more solutions. Tried " + possibleSolutions.size() + " times of " + times);
